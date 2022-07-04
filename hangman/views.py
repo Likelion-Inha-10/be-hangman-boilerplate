@@ -46,9 +46,8 @@ class Game(APIView):
 
         # input data
         hm.ans = str(request.data["char"]).lower()
-        # hm.ans = hm.ans.lower()
         
-        if len(hm.ans) > 1:
+        if len(hm.ans) > 1 or 'z' < hm.ans or hm.ans < 'a':
             raise ValidationError
 
         # If ans was already typed
