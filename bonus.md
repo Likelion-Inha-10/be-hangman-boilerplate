@@ -5,6 +5,9 @@
 </code></pre>
 
 2. localhost 이름 변경 (localhost -> my-domain.com)
+
+## MAC
+
 <pre><code> 
     ##
     # Host Database
@@ -28,6 +31,40 @@
     255.255.255.255 broadcasthost
     ::1             localhost
     </pre></code>
+    
+## 윈도우
+ 
+ - 윈도우에서 DNS 를 생성시에 아래와 같은 과정을 따랐습니다.
+ 
+### 1. IP 주소를 도메인 주소(DNS) 로 바꾸기 위해 Host 파일을 수정하기 
+ - 1-1. 아래처럼 host 파일이 위치한 경로인 C:\Windows\System32\drivers\etc 경로로 이동했습니다.
+
+![image](https://user-images.githubusercontent.com/88240193/177096372-8e54249b-4a79-4cdd-97ec-81a6bd925d01.png)
+
+- 1-2. host 파일을 텍스트 파일(txt) 로 열어서 아래와 같이 127.0.0.1 IP주소에 대한 도메인 주소를 새롭게 등록했습니다.
+
+![image](https://user-images.githubusercontent.com/88240193/177097001-12cd16fe-32a9-4d01-9213-2c55f2dbabb4.png)
+
+- 1-3. 그러나 "관리자 권한이 필요" 하기 때문에 엑세스 자체가 거부 되어서, hosts 파일 관리자 권한으로 수정할 방법이 필요 했습니다.
+-  ( 이거 안되서 해결하는데 몇시간동안 고생했습니다,,, ^_^)
+
+### 2. 관리자 권한으로 Host 파일을 수정하기
+
+- hosts 파일에 대한 속성을 변경했습니다. 
+- User 그룹을 선택후, 모든 권한을 허용함
+![image](https://user-images.githubusercontent.com/88240193/177098562-f0098642-1d43-4f17-be60-70dad6f6b43a.png)
+
+- 그 뒤로 host 파일을 열고 원하는 도메인 주소(my-domain.com) 을 등록했다.
+
+#### 3. 실행결과
+
+![image](https://user-images.githubusercontent.com/88240193/177099184-651a61c3-7e5b-4f4b-9c45-3a5fab6db5be.png)
+
+
+
+---
+ 
+ 
 
 3. settings.py 수정 (ALLOWED_HOSTS)
 <pre><code>ALLOWED_HOSTS = [
