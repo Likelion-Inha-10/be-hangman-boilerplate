@@ -15,7 +15,11 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
+from hangman import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('', views.TestAPI.as_view()),  #as_view를 반드시 붙여야 한다!!
+    path('new', views.New.as_view()),
+    path('game/<int:hangmanid>', views.Game.as_view()),
 ]
