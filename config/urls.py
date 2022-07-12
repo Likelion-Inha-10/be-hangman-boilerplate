@@ -15,9 +15,10 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from hangman import views
+from hangman.views import CreateGameView, HangmanGameView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', views.TestAPI.as_view()),
+    path('new', CreateGameView.as_view()),
+    path('game/<int:id>', HangmanGameView.as_view())
 ]
