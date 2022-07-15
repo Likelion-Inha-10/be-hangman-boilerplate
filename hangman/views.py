@@ -2,6 +2,8 @@ from django.shortcuts import render, get_object_or_404
 from .models import Hangman
 from rest_framework.views import APIView
 from rest_framework.response import Response
+from django.contrib.auth import authenticate
+from rest_framework.authtoken.models import Token
 # Create your views here.
 
 
@@ -45,3 +47,19 @@ class CreateGameView(APIView):
         game = Hangman.objects.create(word=''.join(list(map(lambda c: c if c.isalpha(
         ) else "", request.data.get('word')))).lower(), max_try=max_try)
         return Response({"id": game.id, "word": game.word, "max_try": game.max_try})
+
+
+class UserInfo(APIView):
+    def get(self, request, *args, **kwargs):
+        return Response({"email": request.user.email, "username": request.user.username})
+
+
+class Login(APIView):
+    def post(self, request, *args, **kwargs):
+        user = authenticate(username=request.data.get('username'),
+                            password=request.data.get('password'))
+        if user is not None:
+            token, created = Token.objects.get_or_create(user=user)
+            return Response({"token": token.key})
+        else:
+            return Response({"error": "invalid credentials"}, status=400)
